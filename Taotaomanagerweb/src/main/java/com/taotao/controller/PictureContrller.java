@@ -1,6 +1,6 @@
 package com.taotao.controller;
 
-import com.taotao.service.impl.PictureServiceImpl;
+import com.taotao.service.PictureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +13,7 @@ import java.util.Map;
 public class PictureContrller {
 
     @Autowired
-    private PictureServiceImpl pictureService;
+    private PictureService pictureService;
 
     @RequestMapping("/pic/upload")
     @ResponseBody
@@ -25,7 +25,7 @@ public class PictureContrller {
     }
 
 
-    public void setPictureService(PictureServiceImpl pictureService) {
+    public void setPictureService(PictureService pictureService) {
         this.pictureService = pictureService;
     }
 }
