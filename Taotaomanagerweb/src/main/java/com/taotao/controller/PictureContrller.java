@@ -17,9 +17,9 @@ public class PictureContrller {
 
     @RequestMapping("/pic/upload")
     @ResponseBody
-    public Map pictureUpload(MultipartFile multipartFile) {
+    public Map pictureUpload(MultipartFile uploadFile) {
 
-        Map result = pictureService.uploadPicture(multipartFile);
+        Map result = pictureService.uploadPicture(uploadFile);
 
         return result;
     }

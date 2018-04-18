@@ -2,6 +2,7 @@ package com.taotao.service.impl;
 
 import com.taotao.common.utils.FtpUtil;
 import com.taotao.common.utils.IDUtils;
+import com.taotao.common.utils.SftpUtils;
 import com.taotao.service.PictureService;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,8 +40,10 @@ public class PictureServiceImpl implements PictureService {
             //生成图片路径
             String imagepath = new DateTime().toString("/yyyy/MM/dd");
             //图片上传
-            boolean result = FtpUtil.uploadFile(FTP_ADDRESS, FTP_PORT, FTP_USERNAME, FTP_PASSWORD, FTP_BASE_PATH,
-                    imagepath, newfilename, uploadFile.getInputStream());
+           // System.out.println("localpath: "+uploadFile.getInputStream());
+            System.out.println("dstpath: "+FTP_BASE_PATH+imagepath+newfilename);
+            boolean result = SftpUtils.uploadFile(FTP_ADDRESS, FTP_PORT, FTP_USERNAME, FTP_PASSWORD, FTP_BASE_PATH,
+                    imagepath+"/", newfilename, uploadFile.getInputStream());
             if (result == true) {
                 resultmap.put("error", 0);
                 resultmap.put("url", IMAGES_BASE_PATH + imagepath + "/" + newfilename);
@@ -50,7 +53,7 @@ public class PictureServiceImpl implements PictureService {
                 resultmap.put("message", "图片上传出错");
                 return resultmap;
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             resultmap.put("error", 1);
             resultmap.put("message", "图片上传出错");
             return resultmap;
