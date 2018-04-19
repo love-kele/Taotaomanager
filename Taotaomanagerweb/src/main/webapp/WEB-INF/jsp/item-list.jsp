@@ -122,7 +122,11 @@
             				$.messager.alert('提示','删除商品成功!',undefined,function(){
             					$("#itemList").datagrid("reload");
             				});
-            			}
+            			}else {
+                                $.messager.alert('提示','删除失败！ 请查看商品状态',undefined,function(){
+                                    $("#itemList").datagrid("reload");
+                                })
+                            }
             		});
         	    }
         	});
@@ -144,7 +148,12 @@
             				$.messager.alert('提示','下架商品成功!',undefined,function(){
             					$("#itemList").datagrid("reload");
             				});
-            			}
+            			} else {
+                            $.messager.alert('提示','下架失败！ 请查看商品状态',undefined,function(){
+                                $("#itemList").datagrid("reload");
+                            })
+                        }
+
             		});
         	    }
         	});
@@ -166,7 +175,11 @@
             				$.messager.alert('提示','上架商品成功!',undefined,function(){
             					$("#itemList").datagrid("reload");
             				});
-            			}
+            			}else {
+                            $.messager.alert('提示','上架商品失败！ 请查看商品状态',undefined,function(){
+                                $("#itemList").datagrid("reload");
+                            })
+                        }
             		});
         	    }
         	});

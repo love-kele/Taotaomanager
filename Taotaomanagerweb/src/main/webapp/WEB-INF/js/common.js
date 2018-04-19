@@ -48,11 +48,11 @@ var TT = TAOTAO = {
 	// 格式化商品的状态
 	formatItemStatus : function formatStatus(val,row){
         if (val == 1){
-            return '正常';
+            return '<span style="color:rgba(95,216,42,0.78);">正常</span>';
         } else if(val == 2){
         	return '<span style="color:red;">下架</span>';
         } else {
-        	return '未知';
+        	return '<span style="color:#4e4a56">已删除</span>';
         }
     },
     
