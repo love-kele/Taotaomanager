@@ -9,7 +9,7 @@ public interface ItemService {
 
     EUIDataGridResult getItemList(int page,int rows);
 
-    TaotaoResult createItem(TbItem tbItem);
+    TaotaoResult createItem(TbItem tbItem,String desc,String params)throws Exception;
 
     TaotaoResult updateItem(TbItem tbItem);
 
