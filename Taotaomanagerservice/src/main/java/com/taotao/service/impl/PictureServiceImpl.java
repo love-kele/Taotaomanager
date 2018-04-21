@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 图片上传功能
+ */
 @Service
 public class PictureServiceImpl implements PictureService {
 
@@ -29,6 +32,7 @@ public class PictureServiceImpl implements PictureService {
     @Value("${IMAGES_BASE_PATH}")
     private String IMAGES_BASE_PATH;
 
+    //通过sftp协议上传图片（速度很慢，有待改进）
     @Override
     public Map uploadPicture(MultipartFile uploadFile) {
         Map resultmap = new HashMap();

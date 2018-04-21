@@ -11,13 +11,16 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * ItemCatService  商品分类管理
+ */
 @Service
 public class ItemCatServiceImpl implements ItemCatService {
 
     @Autowired
     private TbItemCatMapper itemCatMapper;
 
-
+   //通过EasyUI的树结构来获得所有的分类信息
     @Override
     public List<EUITreeNode> getCatList(long parentid) {
         TbItemCatExample example = new TbItemCatExample();

@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 根据商品id查询商品信息
+ * ItemService包含对商品的管理
  */
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -31,6 +31,7 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     private TbItemParamItemMapper itemParamItemMapper;
 
+    //通过商品id取出商品
     @Override
     public TbItem getItemById(long itemid) {
 
@@ -41,6 +42,7 @@ public class ItemServiceImpl implements ItemService {
             return null;
     }
 
+    //分页查询所有商品
     @Override
     public EUIDataGridResult getItemList(int page, int rows) {
         TbItemExample example = new TbItemExample();
@@ -59,6 +61,7 @@ public class ItemServiceImpl implements ItemService {
         return result;
     }
 
+    //添加一个商品
     @Override
     public TaotaoResult createItem(TbItem tbItem, String desc, String params) throws Exception {
 
@@ -81,6 +84,7 @@ public class ItemServiceImpl implements ItemService {
         return result;
     }
 
+    //添加商品描述
     private TaotaoResult insertItemDesc(long itemid, String desc) {
         TbItemDesc itemDesc = new TbItemDesc();
         itemDesc.setItemId(itemid);
@@ -93,6 +97,7 @@ public class ItemServiceImpl implements ItemService {
         return TaotaoResult.ok();
     }
 
+    //添加商品规格参数
     private TaotaoResult insertItemParams(long itemid, String params) {
 
         TbItemParamItem itemParamItem = new TbItemParamItem();
@@ -105,6 +110,7 @@ public class ItemServiceImpl implements ItemService {
         return TaotaoResult.ok();
     }
 
+    //更新商品
     @Override
     public TaotaoResult updateItem(TbItem tbItem, String desc, String itemParams)throws Exception {
         tbItem.setUpdated(new java.util.Date());
@@ -120,6 +126,7 @@ public class ItemServiceImpl implements ItemService {
         return TaotaoResult.ok();
     }
 
+    //更新商品描述
     private TaotaoResult updateDesc(long itemid, String desc) {
         TbItemDesc itemDesc = new TbItemDesc();
         itemDesc.setItemDesc(desc);
@@ -132,6 +139,7 @@ public class ItemServiceImpl implements ItemService {
         return TaotaoResult.ok();
     }
 
+    //更新商品规格参数
     private TaotaoResult updateParams(long itemid, String params) {
         TbItemParamItem itemParamItem = new TbItemParamItem();
         itemParamItem.setParamData(params);
@@ -144,6 +152,7 @@ public class ItemServiceImpl implements ItemService {
         return TaotaoResult.ok();
     }
 
+    //删除商品
     @Override
     public TaotaoResult delectItem(long[] ids) {
         int num = 0;
@@ -173,6 +182,7 @@ public class ItemServiceImpl implements ItemService {
 //        return TaotaoResult.ok();
     }
 
+    //下架商品
     @Override
     public TaotaoResult instockItem(long[] ids) {
         int num = 0;
@@ -204,6 +214,7 @@ public class ItemServiceImpl implements ItemService {
 //        }
     }
 
+    //上架商品
     @Override
     public TaotaoResult reshelfItem(long[] ids) {
         int num = 0;
@@ -234,6 +245,7 @@ public class ItemServiceImpl implements ItemService {
 //        return TaotaoResult.ok();
     }
 
+    //通过商品id获取商品规格参数
     @Override
     public TaotaoResult getParams(long itemid) {
 
@@ -248,6 +260,7 @@ public class ItemServiceImpl implements ItemService {
         return TaotaoResult.ok();
     }
 
+    //通过商品id获取商品描述
     @Override
     public TaotaoResult getDesc(long itemid) {
         TbItemDescExample example = new TbItemDescExample();

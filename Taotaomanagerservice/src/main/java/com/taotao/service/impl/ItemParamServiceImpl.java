@@ -2,7 +2,6 @@ package com.taotao.service.impl;
 
 import com.taotao.common.utils.TaotaoResult;
 import com.taotao.mapper.TbItemParamMapper;
-import com.taotao.pojo.TbItem;
 import com.taotao.pojo.TbItemParam;
 import com.taotao.pojo.TbItemParamExample;
 import com.taotao.service.ItemParamService;
@@ -12,11 +11,15 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * ItemParamService包含对商品规格模板的管理
+ */
 @Service
 public class ItemParamServiceImpl implements ItemParamService {
     @Autowired
     private TbItemParamMapper itemParamMapper;
 
+    //通过商品分类id获取一个商品规格模板
     @Override
     public TaotaoResult getItemParam(long itemcatid) {
 
@@ -33,6 +36,8 @@ public class ItemParamServiceImpl implements ItemParamService {
         return TaotaoResult.ok();
     }
 
+
+    //为商品添加规格模板
     @Override
     public TaotaoResult saveItemParam(long id,String param) {
 

@@ -22,6 +22,7 @@ public class ItemContrller {
         return page;
     }
 
+
     @RequestMapping("/item/list")
     @ResponseBody
     public EUIDataGridResult getItemList(Integer page, Integer rows) {
@@ -29,6 +30,7 @@ public class ItemContrller {
 
         return result;
     }
+
 
     @RequestMapping(value = "/item/save", method = RequestMethod.POST)
     @ResponseBody
@@ -39,6 +41,7 @@ public class ItemContrller {
         return result;
     }
 
+
     @RequestMapping(value = "/rest/item/update")
     @ResponseBody
     public TaotaoResult updateItem(TbItem tbItem,String desc,String itemParams)throws Exception {
@@ -48,6 +51,7 @@ public class ItemContrller {
         return result;
     }
 
+
     @RequestMapping("/rest/item/param/item/query/{id}")
     @ResponseBody
     public TaotaoResult getParams(@PathVariable long id) {
@@ -56,6 +60,7 @@ public class ItemContrller {
 
         return result;
     }
+
 
     @RequestMapping("/rest/item/query/item/desc/{id}")
     @ResponseBody
@@ -76,6 +81,7 @@ public class ItemContrller {
         return result;
     }
 
+
     @RequestMapping(value = "/rest/item/reshelf", method = RequestMethod.POST)
     @ResponseBody
     public TaotaoResult reshelfItem(long[] ids) {
@@ -85,6 +91,7 @@ public class ItemContrller {
         return result;
     }
 
+
     @RequestMapping(value = "/rest/item/instock", method = RequestMethod.POST)
     @ResponseBody
     public TaotaoResult instockItem(long[] ids) {
@@ -93,6 +100,7 @@ public class ItemContrller {
 
         return result;
     }
+
 
     @RequestMapping("/rest/page/item-edit")
     public String showItem() {
@@ -106,6 +114,7 @@ public class ItemContrller {
 
         return "index";
     }
+
 
     public void setService(ItemService service) {
 
