@@ -1,5 +1,6 @@
 package com.taotao.controller;
 
+import com.taotao.common.pojo.EUIDataGridResult;
 import com.taotao.common.utils.TaotaoResult;
 import com.taotao.service.ItemParamService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,14 @@ public class ItemParamContrller {
         return result;
    }
 
+  @RequestMapping("/list")
+  @ResponseBody
+  public EUIDataGridResult selectItemParam(Integer page,Integer rows){
 
+        EUIDataGridResult result =paramService.selectItemParam(page,rows);
+
+        return result;
+  }
 
     public void setParamService(ItemParamService paramService) {
         this.paramService = paramService;

@@ -1,5 +1,6 @@
 package com.taotao.service;
 
+import com.taotao.common.pojo.EUIDataGridResult;
 import com.taotao.common.utils.TaotaoResult;
 
 public interface ItemParamService {
@@ -8,4 +9,5 @@ public interface ItemParamService {
 
     TaotaoResult saveItemParam(long id,String param);
 
+    EUIDataGridResult selectItemParam(int page,int rows);
 }
