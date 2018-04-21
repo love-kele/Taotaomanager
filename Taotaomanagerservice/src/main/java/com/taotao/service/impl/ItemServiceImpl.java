@@ -8,10 +8,7 @@ import com.taotao.common.utils.TaotaoResult;
 import com.taotao.mapper.TbItemDescMapper;
 import com.taotao.mapper.TbItemMapper;
 import com.taotao.mapper.TbItemParamItemMapper;
-import com.taotao.pojo.TbItem;
-import com.taotao.pojo.TbItemDesc;
-import com.taotao.pojo.TbItemExample;
-import com.taotao.pojo.TbItemParamItem;
+import com.taotao.pojo.*;
 import com.taotao.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,7 +60,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public TaotaoResult createItem(TbItem tbItem,String desc,String params) throws Exception {
+    public TaotaoResult createItem(TbItem tbItem, String desc, String params) throws Exception {
 
         long id = IDUtils.genItemId();
         tbItem.setId(id);
@@ -71,20 +68,20 @@ public class ItemServiceImpl implements ItemService {
         tbItem.setCreated(new java.util.Date());
         tbItem.setUpdated(new java.util.Date());
         itemMapper.insert(tbItem);
-     TaotaoResult result =  insertItemDesc(id,desc);
-     if(result.getStatus()!=200){
+        TaotaoResult result = insertItemDesc(id, desc);
+        if (result.getStatus() != 200) {
 
-         throw  new Exception();
-     }
-       result=insertItemParams(id,params);
-        if(result.getStatus()!=200){
+            throw new Exception();
+        }
+        result = insertItemParams(id, params);
+        if (result.getStatus() != 200) {
 
-            throw  new Exception();
+            throw new Exception();
         }
         return result;
     }
 
-    private TaotaoResult insertItemDesc(long itemid,String desc){
+    private TaotaoResult insertItemDesc(long itemid, String desc) {
         TbItemDesc itemDesc = new TbItemDesc();
         itemDesc.setItemId(itemid);
         itemDesc.setItemDesc(desc);
@@ -96,7 +93,7 @@ public class ItemServiceImpl implements ItemService {
         return TaotaoResult.ok();
     }
 
-    private TaotaoResult insertItemParams(long itemid , String params){
+    private TaotaoResult insertItemParams(long itemid, String params) {
 
         TbItemParamItem itemParamItem = new TbItemParamItem();
         itemParamItem.setItemId(itemid);
@@ -109,28 +106,58 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public TaotaoResult updateItem(TbItem tbItem) {
+    public TaotaoResult updateItem(TbItem tbItem, String desc, String itemParams)throws Exception {
         tbItem.setUpdated(new java.util.Date());
-
         itemMapper.updateByPrimaryKeySelective(tbItem);
+        TaotaoResult result = updateDesc(tbItem.getId(), desc);
+        if(result.getStatus()!=200){
+            throw new Exception();
+        }
+       result= updateParams(tbItem.getId(),itemParams);
+        if(result.getStatus()!=200){
+            throw new Exception();
+        }
+        return TaotaoResult.ok();
+    }
+
+    private TaotaoResult updateDesc(long itemid, String desc) {
+        TbItemDesc itemDesc = new TbItemDesc();
+        itemDesc.setItemDesc(desc);
+        itemDesc.setUpdated(new Date());
+        TbItemDescExample example = new TbItemDescExample();
+        TbItemDescExample.Criteria criteria = example.createCriteria();
+        criteria.andItemIdEqualTo(itemid);
+        itemDescMapper.updateByExampleSelective(itemDesc,example);
+
+        return TaotaoResult.ok();
+    }
+
+    private TaotaoResult updateParams(long itemid, String params) {
+        TbItemParamItem itemParamItem = new TbItemParamItem();
+        itemParamItem.setParamData(params);
+        itemParamItem.setUpdated(new Date());
+        TbItemParamItemExample example = new TbItemParamItemExample();
+        TbItemParamItemExample.Criteria criteria = example.createCriteria();
+        criteria.andItemIdEqualTo(itemid);
+        itemParamItemMapper.updateByExampleSelective(itemParamItem, example);
+
         return TaotaoResult.ok();
     }
 
     @Override
-    public TaotaoResult delectItem(long []ids) {
-        int num=0;
-        for (Long id:ids)
-        {
+    public TaotaoResult delectItem(long[] ids) {
+        int num = 0;
+        for (Long id : ids) {
             TbItem tbItem = itemMapper.selectByPrimaryKey(id);
 
-            tbItem.setStatus((byte)3);
+            tbItem.setStatus((byte) 3);
             tbItem.setUpdated(new java.util.Date());
             itemMapper.updateByPrimaryKeySelective(tbItem);
             num++;
         }
-          if(num==ids.length)
+        if (num == ids.length)
 
-        return TaotaoResult.ok();
+            return TaotaoResult.ok();
         else
             return TaotaoResult.fail();
 //        bItem tbItem = itemMapper.selectByPrimaryKey(id);
@@ -148,18 +175,17 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public TaotaoResult instockItem(long[] ids) {
-        int num=0;
-        for (Long id:ids)
-        {
+        int num = 0;
+        for (Long id : ids) {
             TbItem tbItem = itemMapper.selectByPrimaryKey(id);
 
 
-            tbItem.setStatus((byte)2);
+            tbItem.setStatus((byte) 2);
             tbItem.setUpdated(new java.util.Date());
             itemMapper.updateByPrimaryKeySelective(tbItem);
             num++;
         }
-        if(num==ids.length)
+        if (num == ids.length)
 
             return TaotaoResult.ok();
         else
@@ -179,19 +205,18 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public TaotaoResult reshelfItem(long [] ids) {
-        int num=0;
-        for (Long id:ids)
-        {
+    public TaotaoResult reshelfItem(long[] ids) {
+        int num = 0;
+        for (Long id : ids) {
             TbItem tbItem = itemMapper.selectByPrimaryKey(id);
 
 
-            tbItem.setStatus((byte)1);
+            tbItem.setStatus((byte) 1);
             tbItem.setUpdated(new java.util.Date());
             itemMapper.updateByPrimaryKeySelective(tbItem);
             num++;
         }
-        if(num==ids.length)
+        if (num == ids.length)
 
             return TaotaoResult.ok();
         else
@@ -209,13 +234,39 @@ public class ItemServiceImpl implements ItemService {
 //        return TaotaoResult.ok();
     }
 
+    @Override
+    public TaotaoResult getParams(long itemid) {
+
+        TbItemParamItemExample example = new TbItemParamItemExample();
+        TbItemParamItemExample.Criteria criteria = example.createCriteria();
+        criteria.andItemIdEqualTo(itemid);
+        List<TbItemParamItem> itemParamItems = itemParamItemMapper.selectByExampleWithBLOBs(example);
+        if (itemParamItems != null && itemParamItems.size() > 0)
+
+            return TaotaoResult.ok(itemParamItems.get(0));
+
+        return TaotaoResult.ok();
+    }
+
+    @Override
+    public TaotaoResult getDesc(long itemid) {
+        TbItemDescExample example = new TbItemDescExample();
+        TbItemDescExample.Criteria criteria = example.createCriteria();
+        criteria.andItemIdEqualTo(itemid);
+        List<TbItemDesc> itemDescs = itemDescMapper.selectByExampleWithBLOBs(example);
+        if (itemDescs != null && itemDescs.size() > 0) {
+            return TaotaoResult.ok(itemDescs.get(0));
+        }
+
+        return TaotaoResult.ok();
+    }
+
 
     public void setItemMapper(TbItemMapper itemMapper) {
         this.itemMapper = itemMapper;
     }
 
-    public void setItemDescMapper(TbItemDescMapper itemDescMapper)
-    {
+    public void setItemDescMapper(TbItemDescMapper itemDescMapper) {
         this.itemDescMapper = itemDescMapper;
     }
 

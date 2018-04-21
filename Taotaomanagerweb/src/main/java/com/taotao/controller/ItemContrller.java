@@ -32,22 +32,41 @@ public class ItemContrller {
 
     @RequestMapping(value = "/item/save", method = RequestMethod.POST)
     @ResponseBody
-    public TaotaoResult createItem(TbItem tbItem,String desc,String itemParams) throws Exception{
+    public TaotaoResult createItem(TbItem tbItem, String desc, String itemParams) throws Exception {
 
-        TaotaoResult result = service.createItem(tbItem,desc,itemParams);
+        TaotaoResult result = service.createItem(tbItem, desc, itemParams);
 
         return result;
     }
-    @RequestMapping(value="/rest/item/update")
+
+    @RequestMapping(value = "/rest/item/update")
     @ResponseBody
-    public TaotaoResult updateItem(TbItem tbItem) {
+    public TaotaoResult updateItem(TbItem tbItem,String desc,String itemParams)throws Exception {
 
-        TaotaoResult result = service.updateItem(tbItem);
+        TaotaoResult result = service.updateItem(tbItem,desc,itemParams);
 
-        return  result;
+        return result;
     }
 
-    @RequestMapping(value = "/rest/item/delete",method = RequestMethod.POST)
+    @RequestMapping("/rest/item/param/item/query/{id}")
+    @ResponseBody
+    public TaotaoResult getParams(@PathVariable long id) {
+
+        TaotaoResult result = service.getParams(id);
+
+        return result;
+    }
+
+    @RequestMapping("/rest/item/query/item/desc/{id}")
+    @ResponseBody
+    public TaotaoResult getItemDesc(@PathVariable long id) {
+        TaotaoResult result = service.getDesc(id);
+
+        return result;
+    }
+
+
+    @RequestMapping(value = "/rest/item/delete", method = RequestMethod.POST)
     @ResponseBody
     public TaotaoResult delectItem(long[] ids) {
 
@@ -57,18 +76,18 @@ public class ItemContrller {
         return result;
     }
 
-    @RequestMapping(value = "/rest/item/reshelf",method = RequestMethod.POST)
+    @RequestMapping(value = "/rest/item/reshelf", method = RequestMethod.POST)
     @ResponseBody
-    public TaotaoResult reshelfItem(long []ids){
+    public TaotaoResult reshelfItem(long[] ids) {
 
         TaotaoResult result = service.reshelfItem(ids);
 
         return result;
     }
 
-    @RequestMapping(value = "/rest/item/instock",method = RequestMethod.POST)
+    @RequestMapping(value = "/rest/item/instock", method = RequestMethod.POST)
     @ResponseBody
-    public TaotaoResult instockItem(long []ids){
+    public TaotaoResult instockItem(long[] ids) {
 
         TaotaoResult result = service.instockItem(ids);
 
@@ -76,9 +95,9 @@ public class ItemContrller {
     }
 
     @RequestMapping("/rest/page/item-edit")
-    public String showItem(){
+    public String showItem() {
 
-        return  "item-edit";
+        return "item-edit";
     }
 
 

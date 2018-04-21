@@ -11,11 +11,15 @@ public interface ItemService {
 
     TaotaoResult createItem(TbItem tbItem,String desc,String params)throws Exception;
 
-    TaotaoResult updateItem(TbItem tbItem);
+    TaotaoResult updateItem(TbItem tbItem,String desc,String itemParams)throws Exception;
 
     TaotaoResult delectItem(long [] ids);
 
     TaotaoResult instockItem(long [] ids);
 
     TaotaoResult reshelfItem(long [] ids);
+
+    TaotaoResult getParams(long itemid);
+
+    TaotaoResult getDesc(long itemid);
 }
