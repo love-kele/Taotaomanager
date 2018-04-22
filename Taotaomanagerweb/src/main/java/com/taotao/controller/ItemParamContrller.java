@@ -27,9 +27,9 @@ public class ItemParamContrller {
     }
    @RequestMapping(value = "/save/{cid}",method = RequestMethod.POST)
    @ResponseBody
-   public TaotaoResult saveItemParam(@PathVariable long cid,String paramData){
+   public TaotaoResult saveItemParam( @PathVariable long cid,String itemCatName,String paramData){
 
-        TaotaoResult result = paramService.saveItemParam(cid,paramData);
+        TaotaoResult result = paramService.saveItemParam(cid,itemCatName,paramData);
 
         return result;
    }

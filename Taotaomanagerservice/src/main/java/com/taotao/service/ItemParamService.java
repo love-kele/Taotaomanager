@@ -7,7 +7,7 @@ public interface ItemParamService {
 
     TaotaoResult getItemParam(long itemcatid);
 
-    TaotaoResult saveItemParam(long id,String param);
+    TaotaoResult saveItemParam(long id,String itemcatname,String param);
 
     EUIDataGridResult selectItemParam(int page,int rows);
 }

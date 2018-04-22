@@ -6,6 +6,7 @@
     <result column="item_cat_id" property="itemCatId" jdbcType="BIGINT" />
     <result column="created" property="created" jdbcType="TIMESTAMP" />
     <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+    <result column="item_cat_name" property="itemCatName" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.taotao.pojo.TbItemParam" extends="BaseResultMap" >
     <result column="param_data" property="paramData" jdbcType="LONGVARCHAR" />
@@ -69,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, item_cat_id, created, updated
+    id, item_cat_id, created, updated, item_cat_name
   </sql>
   <sql id="Blob_Column_List" >
     param_data
@@ -124,9 +125,11 @@
   </delete>
   <insert id="insert" parameterType="com.taotao.pojo.TbItemParam" >
     insert into tb_item_param (id, item_cat_id, created, 
-      updated, param_data)
+      updated, item_cat_name, param_data
+      )
     values (#{id,jdbcType=BIGINT}, #{itemCatId,jdbcType=BIGINT}, #{created,jdbcType=TIMESTAMP}, 
-      #{updated,jdbcType=TIMESTAMP}, #{paramData,jdbcType=LONGVARCHAR})
+      #{updated,jdbcType=TIMESTAMP}, #{itemCatName,jdbcType=VARCHAR}, #{paramData,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.taotao.pojo.TbItemParam" >
     insert into tb_item_param
@@ -142,6 +145,9 @@
       </if>
       <if test="updated != null" >
         updated,
+      </if>
+      <if test="itemCatName != null" >
+        item_cat_name,
       </if>
       <if test="paramData != null" >
         param_data,
@@ -159,6 +165,9 @@
       </if>
       <if test="updated != null" >
         #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="itemCatName != null" >
+        #{itemCatName,jdbcType=VARCHAR},
       </if>
       <if test="paramData != null" >
         #{paramData,jdbcType=LONGVARCHAR},
@@ -186,6 +195,9 @@
       <if test="record.updated != null" >
         updated = #{record.updated,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.itemCatName != null" >
+        item_cat_name = #{record.itemCatName,jdbcType=VARCHAR},
+      </if>
       <if test="record.paramData != null" >
         param_data = #{record.paramData,jdbcType=LONGVARCHAR},
       </if>
@@ -200,6 +212,7 @@
       item_cat_id = #{record.itemCatId,jdbcType=BIGINT},
       created = #{record.created,jdbcType=TIMESTAMP},
       updated = #{record.updated,jdbcType=TIMESTAMP},
+      item_cat_name = #{record.itemCatName,jdbcType=VARCHAR},
       param_data = #{record.paramData,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -210,7 +223,8 @@
     set id = #{record.id,jdbcType=BIGINT},
       item_cat_id = #{record.itemCatId,jdbcType=BIGINT},
       created = #{record.created,jdbcType=TIMESTAMP},
-      updated = #{record.updated,jdbcType=TIMESTAMP}
+      updated = #{record.updated,jdbcType=TIMESTAMP},
+      item_cat_name = #{record.itemCatName,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -227,6 +241,9 @@
       <if test="updated != null" >
         updated = #{updated,jdbcType=TIMESTAMP},
       </if>
+      <if test="itemCatName != null" >
+        item_cat_name = #{itemCatName,jdbcType=VARCHAR},
+      </if>
       <if test="paramData != null" >
         param_data = #{paramData,jdbcType=LONGVARCHAR},
       </if>
@@ -238,6 +255,7 @@
     set item_cat_id = #{itemCatId,jdbcType=BIGINT},
       created = #{created,jdbcType=TIMESTAMP},
       updated = #{updated,jdbcType=TIMESTAMP},
+      item_cat_name = #{itemCatName,jdbcType=VARCHAR},
       param_data = #{paramData,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -245,7 +263,8 @@
     update tb_item_param
     set item_cat_id = #{itemCatId,jdbcType=BIGINT},
       created = #{created,jdbcType=TIMESTAMP},
-      updated = #{updated,jdbcType=TIMESTAMP}
+      updated = #{updated,jdbcType=TIMESTAMP},
+      item_cat_name = #{itemCatName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

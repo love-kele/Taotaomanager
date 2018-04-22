@@ -50,11 +50,12 @@ public class ItemParamServiceImpl implements ItemParamService {
 
     //为商品添加规格模板
     @Override
-    public TaotaoResult saveItemParam(long id,String param) {
+    public TaotaoResult saveItemParam(long id,String itemcatname,String param) {
 
         TbItemParam itemParam = new TbItemParam();
 
         itemParam.setItemCatId(id);
+        itemParam.setItemCatName(itemcatname);
         itemParam.setParamData(param);
         itemParam.setCreated(new Date());
         itemParam.setUpdated(new Date());

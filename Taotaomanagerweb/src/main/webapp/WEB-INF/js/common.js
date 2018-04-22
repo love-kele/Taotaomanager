@@ -129,7 +129,7 @@ var TT = TAOTAO = {
     			    			if($(this).tree("isLeaf",node.target)){
     			    				// 填写到cid中
     			    				_ele.parent().find("[name=cid]").val(node.id);
-    			    				_ele.next().text(node.text).attr("cid",node.id);
+    			    				_ele.next().text(node.text).attr("cid",node.id).attr("name","itemCatName");
     			    				$(_win).window('close');
     			    				if(data && data.fun){
     			    					data.fun.call(this,node);
