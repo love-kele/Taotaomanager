@@ -64,27 +64,16 @@ public class ItemParamServiceImpl implements ItemParamService {
         return TaotaoResult.ok();
     }
 
-    //分页查询商品规格(建议重建一个mapper 使用多表查询)
+
     @Override
     public EUIDataGridResult selectItemParam(int page, int rows) {
         TbItemParamExample example = new TbItemParamExample();
 
         PageHelper.startPage(page, rows);
- //        List<TbItemParam_fix> itemParam_fixList=new LinkedList<TbItemParam_fix>();
 
         List<TbItemParam> itemParamList = itemParamMapper.selectByExampleWithBLOBs(example);
 
-//        for (TbItemParam itemparam:itemParamList)
-//        {
-//            TbItemParam_fix  fix = new TbItemParam_fix();
-//            fix.setId(itemparam.getId());
-//            fix.setCreated(itemparam.getCreated());
-//            fix.setItemCatId(itemparam.getItemCatId());
-//            fix.setItemCatName(itemCatMapper.selectByPrimaryKey(itemparam.getItemCatId()).getName());
-//            fix.setUpdated(itemparam.getUpdated());
-//            fix.setParamData(itemparam.getParamData());
-//            itemParam_fixList.add(fix);
-//        }
+
         EUIDataGridResult result = new EUIDataGridResult();
 
         result.setRows(itemParamList);
